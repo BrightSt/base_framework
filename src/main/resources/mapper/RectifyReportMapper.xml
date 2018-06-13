@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xqls.common.dao.RectifyReportMapper">
+  <resultMap id="BaseResultMap" type="com.xqls.common.entity.RectifyReport">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="require_id" jdbcType="INTEGER" property="requireId" />
+    <result column="inspection_id" jdbcType="INTEGER" property="inspectionId" />
+    <result column="scope" jdbcType="VARCHAR" property="scope" />
+    <result column="scale" jdbcType="VARCHAR" property="scale" />
+    <result column="process" jdbcType="VARCHAR" property="process" />
+    <result column="start_time" jdbcType="TIMESTAMP" property="startTime" />
+    <result column="end_time" jdbcType="TIMESTAMP" property="endTime" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="before_state" jdbcType="VARCHAR" property="beforeState" />
+    <result column="before_state_file_url" jdbcType="VARCHAR" property="beforeStateFileUrl" />
+    <result column="after_state" jdbcType="VARCHAR" property="afterState" />
+    <result column="after_state_file_url" jdbcType="VARCHAR" property="afterStateFileUrl" />
+    <result column="cost" jdbcType="VARCHAR" property="cost" />
+    <result column="responsible_person" jdbcType="VARCHAR" property="responsiblePerson" />
+    <result column="responsible_phone" jdbcType="VARCHAR" property="responsiblePhone" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
+    <result column="create_user" jdbcType="VARCHAR" property="createUser" />
+    <result column="update_user" jdbcType="VARCHAR" property="updateUser" />
+    <result column="end_flag" jdbcType="INTEGER" property="endFlag" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, require_id, inspection_id, scope, scale, process, start_time, end_time, address, 
+    before_state, before_state_file_url, after_state, after_state_file_url, cost, responsible_person, 
+    responsible_phone, create_time, update_time, create_user, update_user,end_flag
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from rectify_report
+    where inspection_id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from rectify_report
+    where inspection_id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.xqls.common.entity.RectifyReport">
+    insert into rectify_report (id, require_id, inspection_id, 
+      scope, scale, process, 
+      start_time, end_time, address, 
+      before_state, before_state_file_url, after_state, 
+      after_state_file_url, cost, responsible_person, 
+      responsible_phone, create_time, update_time, 
+      create_user, update_user,end_flag)
+    values (#{id,jdbcType=INTEGER}, #{requireId,jdbcType=INTEGER}, #{inspectionId,jdbcType=INTEGER}, 
+      #{scope,jdbcType=VARCHAR}, #{scale,jdbcType=VARCHAR}, #{process,jdbcType=VARCHAR}, 
+      #{startTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP}, #{address,jdbcType=VARCHAR}, 
+      #{beforeState,jdbcType=VARCHAR}, #{beforeStateFileUrl,jdbcType=VARCHAR}, #{afterState,jdbcType=VARCHAR}, 
+      #{afterStateFileUrl,jdbcType=VARCHAR}, #{cost,jdbcType=VARCHAR}, #{responsiblePerson,jdbcType=VARCHAR}, 
+      #{responsiblePhone,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{createUser,jdbcType=VARCHAR}, #{updateUser,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xqls.common.entity.RectifyReport">
+    insert into rectify_report
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="requireId != null">
+        require_id,
+      </if>
+      <if test="inspectionId != null">
+        inspection_id,
+      </if>
+      <if test="scope != null">
+        scope,
+      </if>
+      <if test="scale != null">
+        scale,
+      </if>
+      <if test="process != null">
+        process,
+      </if>
+      <if test="startTime != null">
+        start_time,
+      </if>
+      <if test="endTime != null">
+        end_time,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+      <if test="beforeState != null">
+        before_state,
+      </if>
+      <if test="beforeStateFileUrl != null">
+        before_state_file_url,
+      </if>
+      <if test="afterState != null">
+        after_state,
+      </if>
+      <if test="afterStateFileUrl != null">
+        after_state_file_url,
+      </if>
+      <if test="cost != null">
+        cost,
+      </if>
+      <if test="responsiblePerson != null">
+        responsible_person,
+      </if>
+      <if test="responsiblePhone != null">
+        responsible_phone,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="createUser != null">
+        create_user,
+      </if>
+      <if test="updateUser != null">
+        update_user,
+      </if>
+	  <if test="endFlag != null">
+        end_flag,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="requireId != null">
+        #{requireId,jdbcType=INTEGER},
+      </if>
+      <if test="inspectionId != null">
+        #{inspectionId,jdbcType=INTEGER},
+      </if>
+      <if test="scope != null">
+        #{scope,jdbcType=VARCHAR},
+      </if>
+      <if test="scale != null">
+        #{scale,jdbcType=VARCHAR},
+      </if>
+      <if test="process != null">
+        #{process,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null">
+        #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null">
+        #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="beforeState != null">
+        #{beforeState,jdbcType=VARCHAR},
+      </if>
+      <if test="beforeStateFileUrl != null">
+        #{beforeStateFileUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="afterState != null">
+        #{afterState,jdbcType=VARCHAR},
+      </if>
+      <if test="afterStateFileUrl != null">
+        #{afterStateFileUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="cost != null">
+        #{cost,jdbcType=VARCHAR},
+      </if>
+      <if test="responsiblePerson != null">
+        #{responsiblePerson,jdbcType=VARCHAR},
+      </if>
+      <if test="responsiblePhone != null">
+        #{responsiblePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUser != null">
+        #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="endFlag != null">
+        #{endFlag,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xqls.common.entity.RectifyReport">
+    update rectify_report
+    <set>
+      <if test="requireId != null">
+        require_id = #{requireId,jdbcType=INTEGER},
+      </if>
+      <if test="inspectionId != null">
+        inspection_id = #{inspectionId,jdbcType=INTEGER},
+      </if>
+      <if test="scope != null">
+        scope = #{scope,jdbcType=VARCHAR},
+      </if>
+      <if test="scale != null">
+        scale = #{scale,jdbcType=VARCHAR},
+      </if>
+      <if test="process != null">
+        process = #{process,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null">
+        start_time = #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null">
+        end_time = #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="beforeState != null">
+        before_state = #{beforeState,jdbcType=VARCHAR},
+      </if>
+      <if test="beforeStateFileUrl != null">
+        before_state_file_url = #{beforeStateFileUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="afterState != null">
+        after_state = #{afterState,jdbcType=VARCHAR},
+      </if>
+      <if test="afterStateFileUrl != null">
+        after_state_file_url = #{afterStateFileUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="cost != null">
+        cost = #{cost,jdbcType=VARCHAR},
+      </if>
+      <if test="responsiblePerson != null">
+        responsible_person = #{responsiblePerson,jdbcType=VARCHAR},
+      </if>
+      <if test="responsiblePhone != null">
+        responsible_phone = #{responsiblePhone,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null">
+        create_user = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUser != null">
+        update_user = #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="endFlag != null">
+        end_flag = #{endFlag,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where inspection_id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xqls.common.entity.RectifyReport">
+    update rectify_report
+    set require_id = #{requireId,jdbcType=INTEGER},
+      inspection_id = #{inspectionId,jdbcType=INTEGER},
+      scope = #{scope,jdbcType=VARCHAR},
+      scale = #{scale,jdbcType=VARCHAR},
+      process = #{process,jdbcType=VARCHAR},
+      start_time = #{startTime,jdbcType=TIMESTAMP},
+      end_time = #{endTime,jdbcType=TIMESTAMP},
+      address = #{address,jdbcType=VARCHAR},
+      before_state = #{beforeState,jdbcType=VARCHAR},
+      before_state_file_url = #{beforeStateFileUrl,jdbcType=VARCHAR},
+      after_state = #{afterState,jdbcType=VARCHAR},
+      after_state_file_url = #{afterStateFileUrl,jdbcType=VARCHAR},
+      cost = #{cost,jdbcType=VARCHAR},
+      responsible_person = #{responsiblePerson,jdbcType=VARCHAR},
+      responsible_phone = #{responsiblePhone,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=VARCHAR},
+      update_user = #{updateUser,jdbcType=VARCHAR},
+      end_flag = #{endFlag,jdbcType=VARCHAR}
+    where inspection_id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

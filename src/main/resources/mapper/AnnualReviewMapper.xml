@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xqls.common.dao.AnnualReviewMapper">
+  <resultMap id="BaseResultMap" type="com.xqls.common.entity.AnnualReview">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="user_code" jdbcType="VARCHAR" property="userCode" />
+    <result column="year" jdbcType="INTEGER" property="year" />
+    <result column="file_name" jdbcType="VARCHAR" property="fileName" />
+    <result column="file_url" jdbcType="VARCHAR" property="fileUrl" />
+    <result column="upload_time" jdbcType="VARCHAR" property="uploadTime" />
+    <result column="resume" jdbcType="VARCHAR" property="resume" />
+    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, user_code, year, file_name, file_url, upload_time, resume, remarks,status,delflag
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from annual_review
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    update annual_review set delflag = 1
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.xqls.common.entity.AnnualReview">
+    insert into annual_review (id, user_code, year, 
+      file_name, file_url, upload_time, 
+      resume, remarks,status,delflag)
+    values (#{id,jdbcType=INTEGER}, #{userCode,jdbcType=VARCHAR}, #{year,jdbcType=INTEGER}, 
+      #{fileName,jdbcType=VARCHAR}, #{fileUrl,jdbcType=VARCHAR}, now(), 
+      #{resume,jdbcType=VARCHAR}, #{remarks,jdbcType=VARCHAR},0, 0)
+  </insert>
+  <insert id="insertSelective" parameterType="com.xqls.common.entity.AnnualReview">
+    insert into annual_review
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="userCode != null">
+        user_code,
+      </if>
+      <if test="year != null">
+        year,
+      </if>
+      <if test="fileName != null">
+        file_name,
+      </if>
+      <if test="fileUrl != null">
+        file_url,
+      </if>
+      <if test="uploadTime != null">
+        upload_time,
+      </if>
+      <if test="resume != null">
+        resume,
+      </if>
+      <if test="remarks != null">
+        remarks,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="delflag != null">
+        delflag,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userCode != null">
+        #{userCode,jdbcType=VARCHAR},
+      </if>
+      <if test="year != null">
+        #{year,jdbcType=INTEGER},
+      </if>
+      <if test="fileName != null">
+        #{fileName,jdbcType=VARCHAR},
+      </if>
+      <if test="fileUrl != null">
+        #{fileUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="uploadTime != null">
+       now();
+      </if>
+      <if test="resume != null">
+        #{resume,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null">
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="delflag != null">
+        #{delflag,jdbcType=INTEGER}
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xqls.common.entity.AnnualReview">
+    update annual_review
+    <set>
+      <if test="userCode != null">
+        user_code = #{userCode,jdbcType=VARCHAR},
+      </if>
+      <if test="year != null">
+        year = #{year,jdbcType=INTEGER},
+      </if>
+      <if test="fileName != null">
+        file_name = #{fileName,jdbcType=VARCHAR},
+      </if>
+      <if test="fileUrl != null">
+        file_url = #{fileUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="uploadTime != null">
+        upload_time = #{uploadTime,jdbcType=VARCHAR},
+      </if>
+      <if test="resume != null">
+        resume = #{resume,jdbcType=VARCHAR},
+      </if>
+      <if test="remarks != null">
+        remarks = #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+       status =  #{status,jdbcType=INTEGER},
+      </if>
+      <if test="delflag != null">
+        delflag = #{delflag,jdbcType=INTEGER}
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xqls.common.entity.AnnualReview">
+    update annual_review
+    set user_code = #{userCode,jdbcType=VARCHAR},
+      year = #{year,jdbcType=INTEGER},
+      file_name = #{fileName,jdbcType=VARCHAR},
+      file_url = #{fileUrl,jdbcType=VARCHAR},
+      upload_time = now(),
+      resume = #{resume,jdbcType=VARCHAR},
+      remarks = #{remarks,jdbcType=VARCHAR},
+      status =  #{status,jdbcType=INTEGER},
+      delflag = #{delflag,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="findAllAnnualReview" parameterType="com.xqls.common.entity.AnnualReview" resultType="com.xqls.common.entity.AnnualReview">
+  	select 
+    a.id,
+    a.user_code,
+    c.name as userName,
+    a.year, 
+    a.file_name,
+    a.file_url,
+    a.upload_time, 
+    a.resume,
+    a.remarks,
+    a.status
+    from annual_review a
+    left join company_info c on c.code = a.user_code
+    where a.delflag = 0
+    <if test="year != null and year != '' ">
+    	and a.year= #{year}
+    </if>
+    <if test="userCode != null and userCode != '' ">
+    	and c.code= #{userCode}
+    </if>
+    <if test="fileName != null and fileName != '' ">
+    	and a.file_name like concat('%',#{fileName},'%')
+    </if>
+    <if test="status != null and status != '' ">
+    	and a.status= #{status}
+    </if>
+    order by a.id DESC
+    
+  </select>
+  <select id="findAllForAnnualReviewSelect" parameterType="com.xqls.common.entity.AnnualReview" resultType="com.xqls.common.entity.AnnualReview">
+  	select 
+    a.id,
+    a.user_code,
+    c.name as userName,
+    a.year, 
+    a.file_name,
+    a.file_url,
+    a.upload_time, 
+    a.resume,
+    a.remarks,
+    a.status
+    from annual_review a
+    left join user_info u on c.code = a.user_code
+    where a.delflag = 0
+    <if test="year != null and year != '' ">
+    	and a.year= #{year}
+    </if>
+    <if test="userCode != null and userCode != '' ">
+    	and c.code= #{userCode}
+    </if>
+    <if test="fileName != null and fileName != '' ">
+    	and a.file_name like concat('%',#{fileName},'%')
+    </if>
+    <if test="status != null and status != '' ">
+    	and a.status= #{status}
+    </if>
+    order by a.id DESC
+  </select>
+</mapper>

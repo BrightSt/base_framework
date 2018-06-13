@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xqls.common.dao.CheckInfoMapper">
+  <resultMap id="BaseResultMap" type="com.xqls.common.entity.CheckInfo">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="project_area" jdbcType="VARCHAR" property="projectArea" />
+    <result column="project_address" jdbcType="VARCHAR" property="projectAddress" />
+    <result column="investment" jdbcType="VARCHAR" property="investment" />
+    <result column="pollution" jdbcType="VARCHAR" property="pollution" />
+    <result column="file_path" jdbcType="VARCHAR" property="filePath" />
+    <result column="assessment_id" jdbcType="INTEGER" property="assessmentId" />
+    <result column="company_code" jdbcType="VARCHAR" property="companyCode" />
+    <result column="approve" jdbcType="INTEGER" property="approve" />
+    <result column="approve_result" jdbcType="INTEGER" property="approveResult" />
+    <result column="approve_remark" jdbcType="VARCHAR" property="approveRemark" />
+    <result column="approve_user" jdbcType="VARCHAR" property="approveUser" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, project_area, project_address, investment, pollution, file_path, assessment_id, 
+    company_code, approve, approve_result, approve_remark, approve_user, create_date
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from check_info
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from check_info
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.xqls.common.entity.CheckInfo">
+    insert into check_info (id, project_area, project_address, 
+      investment, pollution, file_path, 
+      assessment_id, company_code, approve, 
+      approve_result, approve_remark, approve_user, 
+      create_date)
+    values (#{id,jdbcType=INTEGER}, #{projectArea,jdbcType=VARCHAR}, #{projectAddress,jdbcType=VARCHAR}, 
+      #{investment,jdbcType=VARCHAR}, #{pollution,jdbcType=VARCHAR}, #{filePath,jdbcType=VARCHAR}, 
+      #{assessmentId,jdbcType=INTEGER}, #{companyCode,jdbcType=VARCHAR}, #{approve,jdbcType=INTEGER}, 
+      #{approveResult,jdbcType=INTEGER}, #{approveRemark,jdbcType=VARCHAR}, #{approveUser,jdbcType=VARCHAR}, 
+      #{createDate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xqls.common.entity.CheckInfo" useGeneratedKeys="true" keyProperty="id">
+    insert into check_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="projectArea != null">
+        project_area,
+      </if>
+      <if test="projectAddress != null">
+        project_address,
+      </if>
+      <if test="investment != null">
+        investment,
+      </if>
+      <if test="pollution != null">
+        pollution,
+      </if>
+      <if test="filePath != null">
+        file_path,
+      </if>
+      <if test="assessmentId != null">
+        assessment_id,
+      </if>
+      <if test="companyCode != null">
+        company_code,
+      </if>
+      <if test="approve != null">
+        approve,
+      </if>
+      <if test="approveResult != null">
+        approve_result,
+      </if>
+      <if test="approveRemark != null">
+        approve_remark,
+      </if>
+      <if test="approveUser != null">
+        approve_user,
+      </if>
+        create_date,
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="projectArea != null">
+        #{projectArea,jdbcType=VARCHAR},
+      </if>
+      <if test="projectAddress != null">
+        #{projectAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="investment != null">
+        #{investment,jdbcType=VARCHAR},
+      </if>
+      <if test="pollution != null">
+        #{pollution,jdbcType=VARCHAR},
+      </if>
+      <if test="filePath != null">
+        #{filePath,jdbcType=VARCHAR},
+      </if>
+      <if test="assessmentId != null">
+        #{assessmentId,jdbcType=INTEGER},
+      </if>
+      <if test="companyCode != null">
+        #{companyCode,jdbcType=VARCHAR},
+      </if>
+      <if test="approve != null">
+        #{approve,jdbcType=INTEGER},
+      </if>
+      <if test="approveResult != null">
+        #{approveResult,jdbcType=INTEGER},
+      </if>
+      <if test="approveRemark != null">
+        #{approveRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="approveUser != null">
+        #{approveUser,jdbcType=VARCHAR},
+      </if>
+        now(),
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xqls.common.entity.CheckInfo">
+    update check_info
+    <set>
+      <if test="projectArea != null">
+        project_area = #{projectArea,jdbcType=VARCHAR},
+      </if>
+      <if test="projectAddress != null">
+        project_address = #{projectAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="investment != null">
+        investment = #{investment,jdbcType=VARCHAR},
+      </if>
+      <if test="pollution != null">
+        pollution = #{pollution,jdbcType=VARCHAR},
+      </if>
+      <if test="filePath != null">
+        file_path = #{filePath,jdbcType=VARCHAR},
+      </if>
+      <if test="assessmentId != null">
+        assessment_id = #{assessmentId,jdbcType=INTEGER},
+      </if>
+      <if test="companyCode != null">
+        company_code = #{companyCode,jdbcType=VARCHAR},
+      </if>
+      <if test="approve != null">
+        approve = #{approve,jdbcType=INTEGER},
+      </if>
+      <if test="approveResult != null">
+        approve_result = #{approveResult,jdbcType=INTEGER},
+      </if>
+      <if test="approveRemark != null">
+        approve_remark = #{approveRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="approveUser != null">
+        approve_user = #{approveUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xqls.common.entity.CheckInfo">
+    update check_info
+    set project_area = #{projectArea,jdbcType=VARCHAR},
+      project_address = #{projectAddress,jdbcType=VARCHAR},
+      investment = #{investment,jdbcType=VARCHAR},
+      pollution = #{pollution,jdbcType=VARCHAR},
+      file_path = #{filePath,jdbcType=VARCHAR},
+      assessment_id = #{assessmentId,jdbcType=INTEGER},
+      company_code = #{companyCode,jdbcType=VARCHAR},
+      approve = #{approve,jdbcType=INTEGER},
+      approve_result = #{approveResult,jdbcType=INTEGER},
+      approve_remark = #{approveRemark,jdbcType=VARCHAR},
+      approve_user = #{approveUser,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <update id="updateApprove" parameterType="com.xqls.common.entity.CheckInfo">
+  	update check_info 
+  	set approve=1,
+  		approve_result = #{approveResult},
+  		approve_remark = #{approveRemark},
+  		approve_user = #{approveUser}
+  	where id = #{id}
+  </update>
+  
+  <select id="list" parameterType="com.xqls.common.entity.CheckInfo" resultType = "com.xqls.common.entity.CheckInfo"> 
+  	select 
+  	ci.*,company.name as companyName,ui.name as approveName
+  	from check_info ci 
+  	left join company_info company on ci.company_code = company.code
+  	left join user_info ui on ci.approve_user = ui.user_name
+  	where 1=1
+  	<if test="companyCode!=null and companyCode!=''">
+  	 and ci.company_code =#{companyCode}
+  	</if>
+  	<if test="approveResult!=null">
+  		and ci.approve_result = #{approveResult}
+  	</if>
+  	order by ci.create_date desc
+  </select>
+  
+</mapper>

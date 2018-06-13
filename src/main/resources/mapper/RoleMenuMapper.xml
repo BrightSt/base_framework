@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xqls.common.dao.RoleMenuMapper">
+	<resultMap id="BaseResultMap" type="com.xqls.common.entity.RoleMenu">
+		<id column="id" jdbcType="INTEGER" property="id" />
+		<result column="roleid" jdbcType="INTEGER" property="roleid" />
+		<result column="menuid" jdbcType="INTEGER" property="menuid" />
+		<result column="createid" jdbcType="DECIMAL" property="createid" />
+		<result column="createdatatime" jdbcType="TIMESTAMP" property="createdatatime" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, roleid, menuid, createid, createdatatime
+	</sql>
+	<select id="selectByPrimaryKey" parameterType="java.lang.Integer"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from role_menu
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from
+		role_menu
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.xqls.common.entity.RoleMenu">
+		insert into role_menu (id,
+		roleid, menuid,
+		createid, createdatatime)
+		values
+		(#{id,jdbcType=INTEGER}, #{roleid,jdbcType=INTEGER},
+		#{menuid,jdbcType=INTEGER},
+		#{createid,jdbcType=DECIMAL},
+		#{createdatatime,jdbcType=TIMESTAMP})
+	</insert>
+	<insert id="insertSelective" parameterType="com.xqls.common.entity.RoleMenu">
+		insert into role_menu
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="roleid != null">
+				roleid,
+			</if>
+			<if test="menuid != null">
+				menuid,
+			</if>
+			<if test="createid != null">
+				createid,
+			</if>
+			<if test="createdatatime != null">
+				createdatatime,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="roleid != null">
+				#{roleid,jdbcType=INTEGER},
+			</if>
+			<if test="menuid != null">
+				#{menuid,jdbcType=INTEGER},
+			</if>
+			<if test="createid != null">
+				#{createid,jdbcType=DECIMAL},
+			</if>
+			<if test="createdatatime != null">
+				#{createdatatime,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.xqls.common.entity.RoleMenu">
+		update role_menu
+		<set>
+			<if test="roleid != null">
+				roleid = #{roleid,jdbcType=INTEGER},
+			</if>
+			<if test="menuid != null">
+				menuid = #{menuid,jdbcType=INTEGER},
+			</if>
+			<if test="createid != null">
+				createid = #{createid,jdbcType=DECIMAL},
+			</if>
+			<if test="createdatatime != null">
+				createdatatime = #{createdatatime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.xqls.common.entity.RoleMenu">
+		update role_menu
+		set roleid = #{roleid,jdbcType=INTEGER},
+		menuid =
+		#{menuid,jdbcType=INTEGER},
+		createid = #{createid,jdbcType=DECIMAL},
+		createdatatime = #{createdatatime,jdbcType=TIMESTAMP}
+		where id =
+		#{id,jdbcType=INTEGER}
+	</update>
+
+	<insert id="insertRoleMenu">
+		insert into role_menu(role_id,menu_id,create_date_time)
+		values
+		<foreach collection='menuids' item="menuid" separator=",">
+			(#{roleid},#{menuid},now())
+		</foreach>
+	</insert>
+
+	<delete id="deleteByRoleid" parameterType="java.lang.Integer">
+		delete from role_menu
+		where role_id = #{roleId,jdbcType=INTEGER}
+	</delete>
+
+	<select id="haveMenuByrole" resultType="java.lang.Integer">
+		select menu_id as id from
+		role_menu where role_id = #{roleid}
+	</select>
+
+	<select id="selectAllMenuByTree" resultType="com.xqls.common.dto.TreeData"
+		parameterType="java.lang.String">
+		select id,menu_name as text,detial_index as parentid
+		from
+		menu_info
+		where type = #{type}
+	</select>
+</mapper>

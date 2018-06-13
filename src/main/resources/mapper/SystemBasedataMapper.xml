@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xqls.common.dao.SystemBasedataMapper">
+  <resultMap id="BaseResultMap" type="com.xqls.common.entity.SystemBasedata">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="code" jdbcType="INTEGER" property="code" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="number" jdbcType="VARCHAR" property="number" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="createtime" jdbcType="TIMESTAMP" property="createtime" />
+    <result column="updatetime" jdbcType="TIMESTAMP" property="updatetime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, code, name, number, remark, createtime, updatetime
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultType="com.xqls.common.entity.SystemBasedata">
+    select 
+    <include refid="Base_Column_List" />
+    from system_basedata
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteData" parameterType="java.lang.Integer">
+    delete from system_basedata
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.xqls.common.entity.SystemBasedata">
+    insert into system_basedata (id, code, name, 
+      number, remark, createtime, 
+      updatetime)
+    values (#{id,jdbcType=BIGINT}, #{code,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
+      #{number,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, now(), 
+      #{updatetime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xqls.common.entity.SystemBasedata">
+    insert into system_basedata
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="code != null">
+        code,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="number != null">
+        number,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="createtime != null">
+        createtime,
+      </if>
+      <if test="updatetime != null">
+        updatetime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="code != null">
+        #{code,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="number != null">
+        #{number,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null">
+        #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateData" parameterType="com.xqls.common.entity.SystemBasedata">
+    update system_basedata
+    <set>
+      <if test="code != null and code !='' ">
+        code = #{code,jdbcType=INTEGER},
+      </if>
+      <if test="name != null and name !='' "  >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="number != null and number != '' ">
+        number = #{number,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null and remark != '' ">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        createtime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      updatetime = now()
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xqls.common.entity.SystemBasedata">
+    update system_basedata
+    set code = #{code,jdbcType=INTEGER},
+      name = #{name,jdbcType=VARCHAR},
+      number = #{number,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      createtime = #{createtime,jdbcType=TIMESTAMP},
+      updatetime = #{updatetime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <select id="findMaxNumber" parameterType="com.xqls.common.entity.SystemBasedata" resultType="Integer">
+  	select MAX(number) from system_basedata where code = #{code}
+  </select>
+  <select id="findAll" parameterType="com.xqls.common.entity.SystemBasedata" resultType="com.xqls.common.entity.SystemBasedata">
+		select 
+		 id,
+		 code,
+		 name,
+		 number,
+		 remark,
+		 createtime,
+		 updatetime
+		from system_basedata
+		where 1=1 
+		<if test = "name != null and name != ''">
+			and name like concat('%', #{name,jdbcType=VARCHAR}, '%')
+		</if>
+		<if test="code != null and code !='' ">
+			and code = #{code}
+		</if>
+		order by id,code 
+	</select>
+	<select id="findAllCount" parameterType="com.xqls.common.entity.SystemBasedata" resultType="java.lang.Integer">
+		select count(1)
+		from system_basedata
+		where 1=1 
+		<if test = "name != null and name != ''">
+			and name like concat('%', #{name,jdbcType=VARCHAR}, '%')
+		</if>
+		<if test="code != null and code !='' ">
+			and code = #{code}
+		</if> 
+	</select>
+	<select id="findAllRemarks" resultType="com.xqls.common.entity.SystemBasedata">
+		select code,remark from system_basedata group by code
+	</select>
+	<select id="findDataByCode" parameterType="com.xqls.common.entity.SystemBasedata" resultMap="BaseResultMap">
+		select code,
+		 name,
+		 number,
+		 remark,
+		 createtime,
+		 updatetime
+		from system_basedata
+		where 1=1
+		<if test="code != null">
+			and	code = #{code}
+		</if>
+	</select>
+	
+	
+</mapper>

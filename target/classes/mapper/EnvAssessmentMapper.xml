@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xqls.common.dao.EnvAssessmentMapper">
+  <resultMap id="BaseResultMap" type="com.xqls.common.entity.EnvAssessment">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="apply_company_code" jdbcType="VARCHAR" property="applyCompanyCode" />
+    <result column="third_company_name" jdbcType="VARCHAR" property="thirdCompanyName" />
+    <result column="validate_date" jdbcType="TIMESTAMP" property="validateDate" />
+    <result column="assessment_file" jdbcType="VARCHAR" property="assessmentFile" />
+    <result column="approve" jdbcType="INTEGER" property="approve" />
+    <result column="approve_result" jdbcType="INTEGER" property="approveResult" />
+    <result column="approve_remark" jdbcType="VARCHAR" property="approveRemark" />
+    <result column="approve_user" jdbcType="VARCHAR" property="approveUser" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="check_submit" jdbcType="INTEGER" property="checkSubmit" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.xqls.common.entity.EnvAssessmentWithBLOBs">
+    <result column="project_info" jdbcType="LONGVARCHAR" property="projectInfo" />
+    <result column="env_info" jdbcType="LONGVARCHAR" property="envInfo" />
+    <result column="content" jdbcType="LONGVARCHAR" property="content" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, apply_company_code, third_company_name, validate_date, assessment_file, approve, 
+    approve_result, approve_remark, approve_user, create_date
+  </sql>
+  <sql id="Blob_Column_List">
+    project_info, env_info, content
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from env_assessment
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from env_assessment
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.xqls.common.entity.EnvAssessmentWithBLOBs">
+    insert into env_assessment (id, apply_company_code, third_company_name, 
+      validate_date, assessment_file, approve, 
+      approve_result, approve_remark, approve_user, 
+      create_date, project_info, env_info, 
+      content)
+    values (#{id,jdbcType=INTEGER}, #{applyCompanyCode,jdbcType=VARCHAR}, #{thirdCompanyName,jdbcType=VARCHAR}, 
+      #{validateDate,jdbcType=TIMESTAMP}, #{assessmentFile,jdbcType=VARCHAR}, #{approve,jdbcType=INTEGER}, 
+      #{approveResult,jdbcType=INTEGER}, #{approveRemark,jdbcType=VARCHAR}, #{approveUser,jdbcType=VARCHAR}, 
+      #{createDate,jdbcType=TIMESTAMP}, #{projectInfo,jdbcType=LONGVARCHAR}, #{envInfo,jdbcType=LONGVARCHAR}, 
+      #{content,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xqls.common.entity.EnvAssessmentWithBLOBs" useGeneratedKeys="true" keyProperty="id">
+    insert into env_assessment
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="applyCompanyCode != null">
+        apply_company_code,
+      </if>
+      <if test="thirdCompanyName != null">
+        third_company_name,
+      </if>
+      <if test="validateDate != null">
+        validate_date,
+      </if>
+      <if test="assessmentFile != null">
+        assessment_file,
+      </if>
+      <if test="approve != null">
+        approve,
+      </if>
+      <if test="approveResult != null">
+        approve_result,
+      </if>
+      <if test="approveRemark != null">
+        approve_remark,
+      </if>
+      <if test="approveUser != null">
+        approve_user,
+      </if>
+        create_date,
+      <if test="projectInfo != null">
+        project_info,
+      </if>
+      <if test="envInfo != null">
+        env_info,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="applyCompanyCode != null">
+        #{applyCompanyCode,jdbcType=VARCHAR},
+      </if>
+      <if test="thirdCompanyName != null">
+        #{thirdCompanyName,jdbcType=VARCHAR},
+      </if>
+      <if test="validateDate != null">
+        #{validateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="assessmentFile != null">
+        #{assessmentFile,jdbcType=VARCHAR},
+      </if>
+      <if test="approve != null">
+        #{approve,jdbcType=INTEGER},
+      </if>
+      <if test="approveResult != null">
+        #{approveResult,jdbcType=INTEGER},
+      </if>
+      <if test="approveRemark != null">
+        #{approveRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="approveUser != null">
+        #{approveUser,jdbcType=VARCHAR},
+      </if>
+       now(),
+      <if test="projectInfo != null">
+        #{projectInfo,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="envInfo != null">
+        #{envInfo,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xqls.common.entity.EnvAssessmentWithBLOBs">
+    update env_assessment
+    <set>
+      <if test="applyCompanyCode != null">
+        apply_company_code = #{applyCompanyCode,jdbcType=VARCHAR},
+      </if>
+      <if test="thirdCompanyName != null">
+        third_company_name = #{thirdCompanyName,jdbcType=VARCHAR},
+      </if>
+      <if test="validateDate != null">
+        validate_date = #{validateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="assessmentFile != null">
+        assessment_file = #{assessmentFile,jdbcType=VARCHAR},
+      </if>
+      <if test="approve != null">
+        approve = #{approve,jdbcType=INTEGER},
+      </if>
+      <if test="approveResult != null">
+        approve_result = #{approveResult,jdbcType=INTEGER},
+      </if>
+      <if test="approveRemark != null">
+        approve_remark = #{approveRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="approveUser != null">
+        approve_user = #{approveUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="projectInfo != null">
+        project_info = #{projectInfo,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="envInfo != null">
+        env_info = #{envInfo,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="checkSubmit != null">
+        check_submit = #{checkSubmit,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.xqls.common.entity.EnvAssessmentWithBLOBs">
+    update env_assessment
+    set apply_company_code = #{applyCompanyCode,jdbcType=VARCHAR},
+      third_company_name = #{thirdCompanyName,jdbcType=VARCHAR},
+      validate_date = #{validateDate,jdbcType=TIMESTAMP},
+      assessment_file = #{assessmentFile,jdbcType=VARCHAR},
+      approve = #{approve,jdbcType=INTEGER},
+      approve_result = #{approveResult,jdbcType=INTEGER},
+      approve_remark = #{approveRemark,jdbcType=VARCHAR},
+      approve_user = #{approveUser,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      project_info = #{projectInfo,jdbcType=LONGVARCHAR},
+      env_info = #{envInfo,jdbcType=LONGVARCHAR},
+      content = #{content,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xqls.common.entity.EnvAssessment">
+    update env_assessment
+    set apply_company_code = #{applyCompanyCode,jdbcType=VARCHAR},
+      third_company_name = #{thirdCompanyName,jdbcType=VARCHAR},
+      validate_date = #{validateDate,jdbcType=TIMESTAMP},
+      assessment_file = #{assessmentFile,jdbcType=VARCHAR},
+      approve = #{approve,jdbcType=INTEGER},
+      approve_result = #{approveResult,jdbcType=INTEGER},
+      approve_remark = #{approveRemark,jdbcType=VARCHAR},
+      check_submit = #{checkSubmit}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="list" parameterType="com.xqls.common.entity.EnvAssessmentWithBLOBs" resultType="com.xqls.common.entity.EnvAssessmentWithBLOBs">
+  	select 
+  	ea.*,ci.name as applyCompanyName,ui.name as approveName
+  	from env_assessment ea
+  	left join company_info ci on ea.apply_company_code = ci.code
+  	left join user_info ui on ea.approve_user = ui.user_name
+  	where 1=1
+  	<if test="applyCompanyCode!=null and applyCompanyCode!=''">
+  	 and ea.apply_company_code = #{applyCompanyCode}
+  	</if>
+  	<if test="approveResult!=null">
+  	 and ea.approve_result = #{approveResult}
+  	</if>
+  	order by ea.create_date desc
+  </select>
+  
+  <update id="updateApprove" parameterType="com.xqls.common.entity.EnvAssessment">
+  	update env_assessment
+  	set approve = 1,
+  		approve_result = #{approveResult},
+  		approve_remark = #{approveRemark},
+  		approve_user = #{approveUser}
+  	where id = #{id}
+  </update>
+  
+</mapper>

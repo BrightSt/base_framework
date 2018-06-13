@@ -1,0 +1,46 @@
+*{
+    box-sizing:border-box;
+    -moz-box-sizing:border-box; /* Firefox */
+    -webkit-box-sizing:border-box;
+}
+.glyphicon{
+    top:0;
+}
+.input-group span{
+    color:#7f7f7f;
+}
+.signBox{
+    width:7.63076rem;
+    height:6.81333rem;
+    background-color: rgba(255,255,255,0.9);
+    border-radius: 0.16rem;
+    margin:4.38666rem auto 0 auto;
+}
+.signTitle{
+    width:100%;
+    height:1.5625rem;
+    line-height:1.5625rem ;
+    background-color:#f6f5f5;
+    text-align: center;
+    border-top-left-radius:0.16rem;
+    border-top-right-radius: 0.16rem;
+    font-size:30px;
+    color:#8b8b8b;
+}
+.signCon{
+    padding:0 0.28125rem;
+}
+.infoBox{
+    height:1.5625rem;
+    padding-top:0.625rem;
+    border-bottom:0.03125rem solid #d9d9d9;
+}
+.infoBox input{
+    border:none;
+    width:5.5625rem;
+    height:0.6875rem;
+}
+.labelTxt{
+    color:#999999;
+    font-size:60px;
+}

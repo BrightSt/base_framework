@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+ <script type="text/javascript"
+	src="http://192.168.18.74:8080/base/resources/easyui/jquery.min.js"></script>
+</head>
+<body>
+
+111wqadqweqweqweqwe
+
+</body>
+
+
+<script type="text/javascript">
+$(function(){
+	$.ajax({
+		url:"http://192.168.18.65:8099/api/Company/Search",
+		type:"POST",
+		data:{"length":10,"page":1},
+		dataType: "jsonp",  //指定服务器返回的数据类型
+		jsonpCallback: "showData",  //指定回调函数名称
+		success:function(res){
+			debugger;
+		}
+	})
+})
+
+function showData(data){
+	debugger;
+}
+</script>
+</html>

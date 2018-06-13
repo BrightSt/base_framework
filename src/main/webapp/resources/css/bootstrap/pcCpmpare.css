@@ -1,0 +1,80 @@
+*{
+    font-family: "Î¢ÈíÑÅºÚ";
+}
+body{
+    background-color: #fff;
+}
+.headTitle{
+    background-color:#5CA5D6 ;
+    padding:20px 0;
+    font-size:25px;
+    color:#fff;
+    text-align: center;
+    font-weight: bold;
+}
+.bgRow{
+    -webkit-box-shadow: 0 0 10px #b6b6b6;
+    -moz-box-shadow: 0 0 10px #b6b6b6;
+    box-shadow: 0 0 10px #b6b6b6;
+    padding-bottom: 20px;
+}
+.dataCon{
+    width:87%;
+    margin:auto;
+    margin-top:30px;
+    font-size: 14px;
+    color:#333;
+}
+.row{
+    margin:0;
+}
+div[class*='col-']{
+    padding:0;
+}
+.dataTitle{
+    font-size:14px;
+    font-weight: bold;
+    text-align: right;
+}
+.dataCon>div.row:nth-child(2n+1){
+    background-color: #f7f7f7;
+}
+.actualData{
+    margin-top:5px;
+    color:red;
+    font-size: 12px;
+    font-weight: normal;
+    display: none;
+}
+.actualData>div:first-child{
+    text-align: right;
+    font-weight:normal;
+    font-size: 12px;
+}
+.dataCon>.row .row>div:last-child{
+    padding-left:5px;
+}
+.rowP{
+    padding: 10px 0;
+}
+.rowRight{
+    text-align: right;
+}
+
+.chartBox{
+    margin:auto;
+    width:92%;
+    margin-top:50px;
+}
+.chartHBox{
+    width:90%;
+    margin:auto;
+    -webkit-box-shadow:0 0 10px #b6b6b6;
+    -moz-box-shadow:0 0 10px #b6b6b6;
+    box-shadow:0 0 10px #b6b6b6;
+}
+.btnG{
+    text-align: center;
+    margin-top:50px;
+    margin-bottom:50px;
+}

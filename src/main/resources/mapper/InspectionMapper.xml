@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xqls.common.dao.InspectionMapper">
+  <resultMap id="BaseResultMap" type="com.xqls.common.entity.Inspection">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="inspected_enterprise_number" jdbcType="VARCHAR" property="inspectedEnterpriseNumber" />
+    <result column="inspect_start_time" jdbcType="TIMESTAMP" property="inspectStartTime" />
+    <result column="inspect_end_time" jdbcType="TIMESTAMP" property="inspectEndTime" />
+    <result column="inspect_enterprise_number" jdbcType="VARCHAR" property="inspectEnterpriseNumber" />
+    <result column="create_person" jdbcType="VARCHAR" property="createPerson" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="result" jdbcType="INTEGER" property="result" />
+    <result column="reason" jdbcType="VARCHAR" property="reason" />
+    <result column="file_url" jdbcType="VARCHAR" property="fileUrl" />
+    <result column="submit_punish" jdbcType="VARCHAR" property="submitPunish" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.xqls.common.entity.Inspection">
+    <result column="content" jdbcType="LONGVARCHAR" property="content" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, inspected_enterprise_number, inspect_start_time, inspect_end_time, inspect_enterprise_number, 
+    create_person, create_time, title, result, reason, file_url,submit_rectify,submit_punish
+  </sql>
+  <sql id="Blob_Column_List">
+    content
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    i.id, i.inspected_enterprise_number,c1.name AS inspectedEnterpriseName, i.inspect_start_time, i.inspect_end_time,
+    i.inspect_enterprise_number,c2.name AS inspectEnterpriseName,
+    i.create_person, i.create_time, i.title, i.result, i.reason, i.file_url,i.submit_rectify,i.submit_punish,i.content
+    from inspection i
+    left join company_info c1 on c1.code = i.inspected_enterprise_number
+    left join company_info c2 on c2.code = i.inspect_enterprise_number
+    where i.id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from inspection
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.xqls.common.entity.Inspection">
+    insert into inspection (id, inspected_enterprise_number, inspect_start_time, 
+      inspect_end_time, inspect_enterprise_number, 
+      create_person, create_time, title, 
+      result, reason, file_url, 
+      content,submit_rectify)
+    values (#{id,jdbcType=INTEGER}, #{inspectedEnterpriseNumber,jdbcType=VARCHAR}, #{inspectStartTime,jdbcType=TIMESTAMP}, 
+      #{inspectEndTime,jdbcType=TIMESTAMP}, #{inspectEnterpriseNumber,jdbcType=VARCHAR}, 
+      #{createPerson,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{title,jdbcType=VARCHAR}, 
+      #{result,jdbcType=INTEGER}, #{reason,jdbcType=VARCHAR}, #{fileUrl,jdbcType=VARCHAR}, 
+      #{content,jdbcType=LONGVARCHAR},#{submitRectify,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xqls.common.entity.Inspection">
+    insert into inspection
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="inspectedEnterpriseNumber != null">
+        inspected_enterprise_number,
+      </if>
+      <if test="inspectStartTime != null">
+        inspect_start_time,
+      </if>
+      <if test="inspectEndTime != null">
+        inspect_end_time,
+      </if>
+      <if test="inspectEnterpriseNumber != null">
+        inspect_enterprise_number,
+      </if>
+      <if test="createPerson != null">
+        create_person,
+      </if>
+        create_time,
+      <if test="title != null">
+        title,
+      </if>
+      <if test="result != null">
+        result,
+      </if>
+      <if test="reason != null">
+        reason,
+      </if>
+      <if test="fileUrl != null">
+        file_url,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+      <if test="submitRectify != null">
+        submit_rectify,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="inspectedEnterpriseNumber != null">
+        #{inspectedEnterpriseNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="inspectStartTime != null">
+        #{inspectStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="inspectEndTime != null">
+        #{inspectEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="inspectEnterpriseNumber != null">
+        #{inspectEnterpriseNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="createPerson != null">
+        #{createPerson,jdbcType=VARCHAR},
+      </if>
+       now(),
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="result != null">
+        #{result,jdbcType=INTEGER},
+      </if>
+      <if test="reason != null">
+        #{reason,jdbcType=VARCHAR},
+      </if>
+      <if test="fileUrl != null">
+        #{fileUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="submitRectify != null">
+        #{submitRectify,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xqls.common.entity.Inspection">
+    update inspection
+    <set>
+      <if test="inspectedEnterpriseNumber != null">
+        inspected_enterprise_number = #{inspectedEnterpriseNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="inspectStartTime != null">
+        inspect_start_time = #{inspectStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="inspectEndTime != null">
+        inspect_end_time = #{inspectEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="inspectEnterpriseNumber != null">
+        inspect_enterprise_number = #{inspectEnterpriseNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="createPerson != null">
+        create_person = #{createPerson,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="result != null">
+        result = #{result,jdbcType=INTEGER},
+      </if>
+      <if test="reason != null">
+        reason = #{reason,jdbcType=VARCHAR},
+      </if>
+      <if test="fileUrl != null">
+        file_url = #{fileUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="submitRectify != null">
+        submit_rectify = #{submitRectify,jdbcType=INTEGER},
+      </if>
+      <if test="submitPunish!=null">
+      	submit_punish = #{submitPunish}
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.xqls.common.entity.Inspection">
+    update inspection
+    set inspected_enterprise_number = #{inspectedEnterpriseNumber,jdbcType=VARCHAR},
+      inspect_start_time = #{inspectStartTime,jdbcType=TIMESTAMP},
+      inspect_end_time = #{inspectEndTime,jdbcType=TIMESTAMP},
+      inspect_enterprise_number = #{inspectEnterpriseNumber,jdbcType=VARCHAR},
+      create_person = #{createPerson,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      title = #{title,jdbcType=VARCHAR},
+      result = #{result,jdbcType=INTEGER},
+      reason = #{reason,jdbcType=VARCHAR},
+      file_url = #{fileUrl,jdbcType=VARCHAR},
+      content = #{content,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xqls.common.entity.Inspection">
+    update inspection
+    set inspected_enterprise_number = #{inspectedEnterpriseNumber,jdbcType=VARCHAR},
+      inspect_start_time = #{inspectStartTime,jdbcType=TIMESTAMP},
+      inspect_end_time = #{inspectEndTime,jdbcType=TIMESTAMP},
+      inspect_enterprise_number = #{inspectEnterpriseNumber,jdbcType=VARCHAR},
+      create_person = #{createPerson,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      title = #{title,jdbcType=VARCHAR},
+      result = #{result,jdbcType=INTEGER},
+      reason = #{reason,jdbcType=VARCHAR},
+      file_url = #{fileUrl,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="list" parameterType="com.xqls.common.entity.Inspection" resultType="com.xqls.common.entity.Inspection">
+  	select 
+  	i.* ,ci.name as inspectedEnterpriseName,ci1.name as inspectEnterpriseName,rr.end_flag as endFlag
+  	from inspection i
+  	left join company_info ci on i.inspected_enterprise_number = ci.code
+  	left join company_info ci1 on i.inspect_enterprise_number = ci1.code
+  	left join rectify_report rr on rr.inspection_id = i.id
+  	where 1=1
+  	<if test="inspectedEnterpriseNumber!=null and inspectedEnterpriseNumber!=''">
+  		and i.inspected_enterprise_number=#{inspectedEnterpriseNumber}
+  	</if>
+  	<if test="result!=null">
+  		and i.result = #{result}
+  	</if>
+  	order by create_time desc
+  </select>
+</mapper>

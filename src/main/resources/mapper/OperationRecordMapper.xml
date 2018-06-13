@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xqls.common.dao.OperationRecordMapper">
+  <resultMap id="BaseResultMap" type="com.xqls.common.entity.OperationRecord">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="method_name" jdbcType="VARCHAR" property="methodName" />
+    <result column="method" jdbcType="VARCHAR" property="method" />
+    <result column="parameter" jdbcType="VARCHAR" property="parameter" />
+    <result column="result" jdbcType="INTEGER" property="result" />
+    <result column="opr_date_time" jdbcType="TIMESTAMP" property="oprDateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, user_name, method_name, method, parameter, result, opr_date_time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from operation_record
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from operation_record
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.xqls.common.entity.OperationRecord">
+    insert into operation_record (id, user_name, method_name, 
+      method, parameter, result, 
+      opr_date_time)
+    values (#{id,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, #{methodName,jdbcType=VARCHAR}, 
+      #{method,jdbcType=VARCHAR}, #{parameter,jdbcType=VARCHAR}, #{result,jdbcType=INTEGER}, 
+      #{oprDateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xqls.common.entity.OperationRecord">
+    insert into operation_record
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="userName != null">
+        user_name,
+      </if>
+      <if test="methodName != null">
+        method_name,
+      </if>
+      <if test="method != null">
+        method,
+      </if>
+      <if test="parameter != null">
+        parameter,
+      </if>
+      <if test="result != null">
+        result,
+      </if>
+      <if test="oprDateTime != null">
+        opr_date_time,
+      </if>
+      <if test="msg!=null">
+      	msg,
+      </if>
+      <if test="throwable!=null">
+       throwable,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="methodName != null">
+        #{methodName,jdbcType=VARCHAR},
+      </if>
+      <if test="method != null">
+        #{method,jdbcType=VARCHAR},
+      </if>
+      <if test="parameter != null">
+        #{parameter,jdbcType=VARCHAR},
+      </if>
+      <if test="result != null">
+        #{result,jdbcType=INTEGER},
+      </if>
+      <if test="oprDateTime != null">
+        #{oprDateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="msg!=null">
+       #{msg,jdbcType=VARCHAR},
+      </if>
+      <if test="throwable!=null">
+       #{throwable,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xqls.common.entity.OperationRecord">
+    update operation_record
+    <set>
+      <if test="userName != null">
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="methodName != null">
+        method_name = #{methodName,jdbcType=VARCHAR},
+      </if>
+      <if test="method != null">
+        method = #{method,jdbcType=VARCHAR},
+      </if>
+      <if test="parameter != null">
+        parameter = #{parameter,jdbcType=VARCHAR},
+      </if>
+      <if test="result != null">
+        result = #{result,jdbcType=INTEGER},
+      </if>
+      <if test="oprDateTime != null">
+        opr_date_time = #{oprDateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xqls.common.entity.OperationRecord">
+    update operation_record
+    set user_name = #{userName,jdbcType=VARCHAR},
+      method_name = #{methodName,jdbcType=VARCHAR},
+      method = #{method,jdbcType=VARCHAR},
+      parameter = #{parameter,jdbcType=VARCHAR},
+      result = #{result,jdbcType=INTEGER},
+      opr_date_time = #{oprDateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="list" parameterType="com.xqls.common.entity.OperationRecord" resultMap="BaseResultMap">
+  	select *
+  	from operation_record
+  	where 1=1
+  	<if test="userName!=null and userName!=''">
+  		and user_name = #{userName}
+  	</if>
+  	order by opr_date_time desc
+  </select>
+</mapper>

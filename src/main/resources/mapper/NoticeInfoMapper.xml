@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xqls.common.dao.NoticeInfoMapper">
+  <resultMap id="BaseResultMap" type="com.xqls.common.entity.NoticeInfo">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="body" jdbcType="VARCHAR" property="body" />
+    <result column="file_url" jdbcType="VARCHAR" property="fileUrl" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="type" jdbcType="INTEGER" property="type" />
+    <result column="notice_enterprise" jdbcType="VARCHAR" property="noticeEnterprise" />
+    <result column="delflag" jdbcType="INTEGER" property="delflag" />
+    <result column="body_text" jdbcType="VARCHAR" property="bodyText" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, title, body, file_url, user_name, create_time, type, notice_enterprise, delflag, 
+    body_text,create_name
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from notice_info
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from notice_info
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.xqls.common.entity.NoticeInfo">
+    insert into notice_info (id, title, body, 
+      file_url, user_name, create_time, 
+      type, notice_enterprise, delflag, 
+      body_text,create_name)
+    values (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{body,jdbcType=VARCHAR}, 
+      #{fileUrl,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, now(), 
+      #{type,jdbcType=INTEGER}, #{noticeEnterprise,jdbcType=VARCHAR}, 0, 
+      #{bodyText,jdbcType=VARCHAR},#{createName})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xqls.common.entity.NoticeInfo">
+    insert into notice_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="body != null">
+        body,
+      </if>
+      <if test="fileUrl != null">
+        file_url,
+      </if>
+      <if test="userName != null">
+        user_name,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="noticeEnterprise != null">
+        notice_enterprise,
+      </if>
+      <if test="delflag != null">
+        delflag,
+      </if>
+      <if test="bodyText != null">
+        body_text,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="body != null">
+        #{body,jdbcType=VARCHAR},
+      </if>
+      <if test="fileUrl != null">
+        #{fileUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="noticeEnterprise != null">
+        #{noticeEnterprise,jdbcType=VARCHAR},
+      </if>
+      <if test="delflag != null">
+        #{delflag,jdbcType=INTEGER},
+      </if>
+      <if test="bodyText != null">
+        #{bodyText,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xqls.common.entity.NoticeInfo">
+    update notice_info
+    <set>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="body != null">
+        body = #{body,jdbcType=VARCHAR},
+      </if>
+      <if test="fileUrl != null">
+        file_url = #{fileUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null">
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="noticeEnterprise != null">
+        notice_enterprise = #{noticeEnterprise,jdbcType=VARCHAR},
+      </if>
+      <if test="delflag != null">
+        delflag = #{delflag,jdbcType=INTEGER},
+      </if>
+      <if test="bodyText != null">
+        body_text = #{bodyText,jdbcType=VARCHAR},
+      </if>
+      <if test="createName != null">
+        create_name = #{createName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xqls.common.entity.NoticeInfo">
+    update notice_info
+    set title = #{title,jdbcType=VARCHAR},
+      body = #{body,jdbcType=VARCHAR},
+      file_url = #{fileUrl,jdbcType=VARCHAR},
+      user_name = #{userName,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      type = #{type,jdbcType=INTEGER},
+      notice_enterprise = #{noticeEnterprise,jdbcType=VARCHAR},
+      delflag = #{delflag,jdbcType=INTEGER},
+      body_text = #{bodyText,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="findAllRegs" parameterType="com.xqls.common.entity.NoticeInfo" resultType="com.xqls.common.entity.NoticeInfo">
+  	select 
+    n.id,
+	n.title,
+	n.body,
+	n.file_url,
+	c.name AS userName,
+	DATE_FORMAT(n.create_time,'%Y-%m-%d') createTimeStr,
+	n.type,
+	n.notice_enterprise,
+	n.delflag,
+	n.body_text,
+	n.create_name,
+	s.name as createNameStr
+    from notice_info n
+    left join company_info c on c.code = n.user_name
+    left join system_basedata s on n.create_name = s.number and s.code = 110005
+    where n.delflag = 0
+    
+    <if test="title != null and title != '' ">
+    	and n.title like concat('%', #{title,jdbcType=VARCHAR}, '%')
+    </if>
+    <if test="userName != null and userName != '' ">
+    	and c.code= #{userName}
+    </if>
+    order by n.id DESC
+    
+  </select>
+  <select id="findAllForSelect" parameterType="com.xqls.common.entity.NoticeInfo" resultType="com.xqls.common.entity.NoticeInfo">
+  	select 
+    n.id,
+	n.title,
+	n.body,
+	n.file_url,
+	c.name AS userName,
+	DATE_FORMAT(n.create_time,'%Y-%m-%d') createTimeStr,
+	n.type,
+	n.notice_enterprise,
+	n.delflag,
+	n.body_text,
+	n.create_name,
+	s.name as createNameStr
+    from notice_info n
+    left join company_info c on c.code = n.user_name
+    left join system_basedata s on n.create_name = s.number and s.code = 110005
+    where n.delflag = 0
+    <if test="title != null and title != '' ">
+    	and n.title like concat('%', #{title,jdbcType=VARCHAR}, '%')
+    </if>
+    <if test="userName != null and userName != '' ">
+    	and c.code= #{userName}
+    </if>
+    order by n.id DESC
+  </select>
+</mapper>

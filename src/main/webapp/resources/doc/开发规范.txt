@@ -1,0 +1,12 @@
+
+1.如何保存操作记录？
+	在需要保存操作记录的方法上加注解:@DoWhat(name=方法名)
+	如：@DoWhat(name = "用户管理-添加用户")
+	   public ResultBean<Integer> add(UserInfo userInfo)
+
+2.返回格式不带分页的统一用：ResultBean<T>   分页的统一用：PageResultBean<T>
+
+3.开发中如果不是一定要使用try catch的地方，不要使用；统一在aop中处理异常。
+	非要使用try cathch的地方如：文件操作，需要在finally里关闭流；
+	
+4.实体属性名不要以is开头。

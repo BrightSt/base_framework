@@ -1,0 +1,12 @@
+@charset "UTF-8";
+ #dt tr{
+   height:40px;
+ }
+ #dt td{
+   vertical-align:middle;
+ }
+ #dt input[type=checkBox]{
+    height:16px;
+    width:16px;
+    vertical-align:middle;
+ }

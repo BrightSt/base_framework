@@ -1,0 +1,178 @@
+body 
+{ 
+    width:100%;
+	height:100%;
+	overflow:hidden; 
+	background:#aaaaaa;
+}
+#header
+{  
+	width:100%;
+	height:68px;
+	background-color:#1e0a07;
+}
+.headleft
+{
+    float:left;
+	width:781px;
+	height:68px;
+	background:url(../images/public/banner/mid.png) no-repeat;
+}
+.devicetype
+{
+    padding-left:400px;
+	line-height:68px;
+	color:#adacac;
+}
+.fontsize32
+{
+    font-size:32px;
+}
+.headright
+{
+    float:right;
+	width:212px;
+	height:68px;
+	background:url(../images/public/banner/other.png);
+}
+#softwareEdition
+{
+    position:absolute;
+    width:134px;
+	height:50px;	
+	top:20px;
+	right:100px;
+	background:url(../images/main/EditionPopBackground.png);	
+	display:none;
+}
+.edtionline
+{
+    height:25px; 
+	line-height:25px; 
+	padding-left:10px;
+	color:#757575;
+}
+.logoedition
+{
+	position:absolute;
+	background:url(../images/public/banner/mid_logo.png);
+	width:138px;
+	height:27px;
+	top:16px;
+	left:22px;
+	_background:none; 
+	_filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src="../images/public/banner/mid_logo.png" ,sizingMethod="crop");
+}
+.language
+{
+	position:absolute;
+	top:6px;
+	right:6px;
+	color:#b26062;
+}
+#nav
+{
+	width: 100%;
+	height: 32px;
+	line-height:32px;
+	background-color:#cfcece;
+}
+.menufirst
+{
+    float:left;
+	width:111px;
+	margin-left:50px;
+	text-align:center;
+}
+.menuother
+{
+	float:left;
+	width:111px;
+	text-align:center;
+}
+.menulast
+{
+    float:right;
+	width:220px;
+	text-align:right;
+	margin-right:20px;
+	color:#727272;
+}
+#mainFrame
+{
+	margin:5px 10px 0 10px;
+	border:4px solid #dcdcdc;
+	border-bottom:4px;
+	background-color:#dcdcdc;
+}
+#ContentFrame
+{
+	width:100%;
+	height:800px;
+}
+#footer
+{
+	width:100%;
+	text-align:center;
+	color:#727272;
+}
+#CurTips
+{
+    display:none;
+	width:150px;
+	height:100px;
+	text-align:center;
+	line-height:100px;
+	position:absolute;
+	right:0px; 
+	bottom:-106px;
+	z-index:999;
+	background-color:#000000;
+	color:#ffffff;
+	border:1px solid #808080;
+}
+#TipsIframe
+{
+    display:none;
+	width:152px;
+	height:102px; 
+	position:absolute;
+	right:0px;
+	bottom:-106px;
+	z-index:100;
+}
+.menuBackground
+{ 
+	color:#FFFFFF;
+	background-color:#762727; 	
+}
+.linklabel
+{
+	font-size:14px;
+	cursor:pointer;
+	font-weight:bold;
+}
+.linklabelSel
+{
+	font-size:14px;
+	cursor:pointer;
+	font-weight:bold;
+}
+.VolumeSlider 
+{ 
+    margin:0px;
+	padding:0px; 
+	height:24px; 
+	width:73px; 
+	background-image:url("../images/public/Volume.png"); 
+    background-repeat:no-repeat;
+}
+.VolumeBar   
+{ 
+    margin:5px 0 0 0;
+	padding:0; 
+	height:13px; 
+	width:10px; 
+	background-image:url("../images/public/Scrollvol.png"); 
+	background-repeat:no-repeat;
+}

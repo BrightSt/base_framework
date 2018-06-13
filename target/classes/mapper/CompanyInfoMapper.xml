@@ -1,0 +1,551 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xqls.common.dao.CompanyInfoMapper">
+	<resultMap id="BaseResultMap" type="com.xqls.common.entity.CompanyInfo">
+		<id column="id" jdbcType="INTEGER" property="id" />
+		<result column="code" jdbcType="VARCHAR" property="code" />
+		<result column="name" jdbcType="VARCHAR" property="name" />
+		<result column="short_name" jdbcType="VARCHAR" property="shortName" />
+		<result column="english_name" jdbcType="VARCHAR" property="englishName" />
+		<result column="area_code" jdbcType="VARCHAR" property="areaCode" />
+		<result column="trade_code" jdbcType="VARCHAR" property="tradeCode" />
+		<result column="picture" jdbcType="VARCHAR" property="picture" />
+		<result column="lat" jdbcType="DECIMAL" property="lat" />
+		<result column="lng" jdbcType="DECIMAL" property="lng" />
+		<result column="phone" jdbcType="VARCHAR" property="phone" />
+		<result column="address" jdbcType="VARCHAR" property="address" />
+		<result column="email" jdbcType="VARCHAR" property="email" />
+		<result column="home_page" jdbcType="VARCHAR" property="homePage" />
+		<result column="product" jdbcType="VARCHAR" property="product" />
+		<result column="manager" jdbcType="VARCHAR" property="manager" />
+		<result column="waste_manager" jdbcType="VARCHAR" property="wasteManager" />
+		<result column="waste_phone" jdbcType="VARCHAR" property="wastePhone" />
+		<result column="facility_address" jdbcType="VARCHAR" property="facilityAddress" />
+		<result column="type" jdbcType="VARCHAR" property="type" />
+		<result column="subjection" jdbcType="VARCHAR" property="subjection" />
+		<result column="register_type" jdbcType="VARCHAR" property="registerType" />
+		<result column="scale" jdbcType="VARCHAR" property="scale" />
+		<result column="manager_code" jdbcType="VARCHAR" property="managerCode" />
+		<result column="company_date" jdbcType="TIMESTAMP" property="companyDate" />
+		<result column="fax" jdbcType="VARCHAR" property="fax" />
+		<result column="post_code" jdbcType="VARCHAR" property="postCode" />
+		<result column="remark" jdbcType="VARCHAR" property="remark" />
+		<result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+		<result column="create_user" jdbcType="VARCHAR" property="createUser" />
+		<result column="radiation_manager" jdbcType="VARCHAR" property="radiationManager" />
+		<result column="radiation_phone" jdbcType="VARCHAR" property="radiationPhone" />
+		<result column="security_license_number" jdbcType="INTEGER" property="securityLicenseNumber" />
+		<result column="work_number" jdbcType="INTEGER" property="workNumber" />
+		<result column="qualified_number" jdbcType="INTEGER" property="qualifiedNumber" />
+		<result column="validate_date_number" jdbcType="INTEGER"
+			property="validateDateNumber" />
+		<result column="monitor_number" jdbcType="INTEGER" property="monitorNumber" />
+		<result column="company_level" jdbcType="INTEGER" property="companyLevel" />
+		<result column="subjection_name" jdbcType="VARCHAR" property="subjectionName" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, code, name, short_name, english_name, area_code,
+		trade_code, picture,
+		lat, lng,company_level,
+		phone, address, email, home_page,
+		product, manager, waste_manager,
+		waste_phone, facility_address,type,
+		subjection, register_type, scale, manager_code, company_date, fax,
+		post_code,
+		remark,
+		create_date,
+		create_user,radiation_manager,radiation_phone,security_license_number,work_number,
+		qualified_number,validate_date_number,monitor_number,check_info_file,env_assessment_file,company_level
+	</sql>
+	<select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultType="com.xqls.common.entity.CompanyInfo">
+		select
+		ci.*,ci2.name as subjection_name,
+		case ci.company_level  
+ 		when 1 then '省控企业'  
+  		when 2 then '市控企业'
+  		when 3 then '区控企业'  
+  		end as companyLevelName
+		from company_info ci
+		left join (select * from company_info)ci2 on ci.subjection =ci2.code
+		where ci.id = #{id,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from
+		company_info
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.xqls.common.entity.CompanyInfo">
+		insert into company_info (id,
+		code, name,
+		short_name, english_name, area_code,
+		trade_code, picture,
+		lat,
+		lng, company_level,phone, address,
+		email, home_page, product,
+		manager,
+		waste_manager, waste_phone,
+		type, subjection, register_type,
+		scale,
+		manager_code, company_date,
+		fax, post_code, remark,
+		create_date,
+		create_user,check_info_file,env_assessment_file)
+		values (#{id,jdbcType=INTEGER}, #{code,jdbcType=VARCHAR},
+		#{name,jdbcType=VARCHAR},
+		#{shortName,jdbcType=VARCHAR},
+		#{englishName,jdbcType=VARCHAR}, #{areaCode,jdbcType=VARCHAR},
+		#{tradeCode,jdbcType=VARCHAR}, #{picture,jdbcType=VARCHAR},
+		#{lat,jdbcType=DECIMAL},
+		#{lng,jdbcType=DECIMAL},#{companyLevel,jdbcType=INTEGER}
+		#{phone,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR},
+		#{email,jdbcType=VARCHAR}, #{homePage,jdbcType=VARCHAR},
+		#{product,jdbcType=VARCHAR},
+		#{manager,jdbcType=VARCHAR},
+		#{wasteManager,jdbcType=VARCHAR}, #{wastePhone,jdbcType=VARCHAR},
+		#{type,jdbcType=VARCHAR}, #{subjection,jdbcType=VARCHAR},
+		#{registerType,jdbcType=VARCHAR},
+		#{scale,jdbcType=VARCHAR},
+		#{managerCode,jdbcType=VARCHAR}, #{companyDate,jdbcType=TIMESTAMP},
+		#{fax,jdbcType=VARCHAR}, #{postCode,jdbcType=VARCHAR},
+		#{remark,jdbcType=VARCHAR},
+		#{createDate,jdbcType=TIMESTAMP},
+		#{createUser,jdbcType=VARCHAR},#{checkInfoFile,jdbcType=VARCHAR},#{envAssessmentFile,jdbcType=VARCHAR})
+	</insert>
+	<insert id="insertSelective" parameterType="com.xqls.common.entity.CompanyInfo">
+		insert into company_info
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="code != null">
+				code,
+			</if>
+			<if test="name != null">
+				name,
+			</if>
+			<if test="shortName != null">
+				short_name,
+			</if>
+			<if test="englishName != null">
+				english_name,
+			</if>
+			<if test="areaCode != null">
+				area_code,
+			</if>
+			<if test="tradeCode != null">
+				trade_code,
+			</if>
+			<if test="picture != null">
+				picture,
+			</if>
+			<if test="lat != null">
+				lat,
+			</if>
+			<if test="lng != null">
+				lng,
+			</if>
+			<if test="companyLevel != null">
+				company_level,
+			</if>
+			<if test="phone != null">
+				phone,
+			</if>
+			<if test="address != null">
+				address,
+			</if>
+			<if test="email != null">
+				email,
+			</if>
+			<if test="homePage != null">
+				home_page,
+			</if>
+			<if test="product != null">
+				product,
+			</if>
+			<if test="manager != null">
+				manager,
+			</if>
+			<if test="wasteManager != null">
+				waste_manager,
+			</if>
+			<if test="wastePhone != null">
+				waste_phone,
+			</if>
+			<if test="facilityAddress != null">
+				facility_address,
+			</if>
+			<if test="type != null">
+				type,
+			</if>
+			<if test="subjection != null">
+				subjection,
+			</if>
+			<if test="registerType != null">
+				register_type,
+			</if>
+			<if test="scale != null">
+				scale,
+			</if>
+			<if test="managerCode != null">
+				manager_code,
+			</if>
+			<if test="companyDate != null">
+				company_date,
+			</if>
+			<if test="fax != null">
+				fax,
+			</if>
+			<if test="postCode != null">
+				post_code,
+			</if>
+			<if test="remark != null">
+				remark,
+			</if>
+				create_date,
+			<if test="createUser != null">
+				create_user,
+			</if>
+			<if test="radiationManager != null">
+				radiation_manager,
+			</if>
+			<if test="radiationPhone != null">
+				radiation_phone,
+			</if>
+			<if test="securityLicenseNumber != null">
+				security_license_number,
+			</if>
+			<if test="workNumber != null">
+				work_number,
+			</if>
+			<if test="qualifiedNumber != null">
+				qualified_number,
+			</if>
+			<if test="validateDateNumber != null">
+				validate_date_number,
+			</if>
+			<if test="monitorNumber != null">
+				monitor_number,
+			</if>
+			<if test="envAssessmentFile != null">
+				env_assessment_file,
+			</if>
+			<if test="checkInfoFile != null">
+				check_info_file,
+			</if>
+			<if test="status != null">
+				status,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="code != null">
+				#{code,jdbcType=VARCHAR},
+			</if>
+			<if test="name != null">
+				#{name,jdbcType=VARCHAR},
+			</if>
+			<if test="shortName != null">
+				#{shortName,jdbcType=VARCHAR},
+			</if>
+			<if test="englishName != null">
+				#{englishName,jdbcType=VARCHAR},
+			</if>
+			<if test="areaCode != null">
+				#{areaCode,jdbcType=VARCHAR},
+			</if>
+			<if test="tradeCode != null">
+				#{tradeCode,jdbcType=VARCHAR},
+			</if>
+			<if test="picture != null">
+				#{picture,jdbcType=VARCHAR},
+			</if>
+			<if test="lat != null">
+				#{lat,jdbcType=DECIMAL},
+			</if>
+			<if test="lng != null">
+				#{lng,jdbcType=DECIMAL},
+			</if>
+			<if test="companyLevel != null">
+				#{companyLevel,jdbcType=INTEGER},
+			</if>
+			<if test="phone != null">
+				#{phone,jdbcType=VARCHAR},
+			</if>
+			<if test="address != null">
+				#{address,jdbcType=VARCHAR},
+			</if>
+			<if test="email != null">
+				#{email,jdbcType=VARCHAR},
+			</if>
+			<if test="homePage != null">
+				#{homePage,jdbcType=VARCHAR},
+			</if>
+			<if test="product != null">
+				#{product,jdbcType=VARCHAR},
+			</if>
+			<if test="manager != null">
+				#{manager,jdbcType=VARCHAR},
+			</if>
+			<if test="wasteManager != null">
+				#{wasteManager,jdbcType=VARCHAR},
+			</if>
+			<if test="wastePhone != null">
+				#{wastePhone,jdbcType=VARCHAR},
+			</if>
+			<if test="facilityAddress != null">
+				#{facilityAddress},
+			</if>
+			<if test="type != null">
+				#{type,jdbcType=VARCHAR},
+			</if>
+			<if test="subjection != null">
+				#{subjection,jdbcType=VARCHAR},
+			</if>
+			<if test="registerType != null">
+				#{registerType,jdbcType=VARCHAR},
+			</if>
+			<if test="scale != null">
+				#{scale,jdbcType=VARCHAR},
+			</if>
+			<if test="managerCode != null">
+				#{managerCode,jdbcType=VARCHAR},
+			</if>
+			<if test="companyDate != null">
+				#{companyDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="fax != null">
+				#{fax,jdbcType=VARCHAR},
+			</if>
+			<if test="postCode != null">
+				#{postCode,jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null">
+				#{remark,jdbcType=VARCHAR},
+			</if>
+				now(),
+			<if test="createUser != null">
+				#{createUser,jdbcType=VARCHAR},
+			</if>
+			<if test="radiationManager != null">
+				#{radiationManager,jdbcType=VARCHAR},
+			</if>
+			<if test="radiationPhone != null">
+				#{radiationPhone,jdbcType=VARCHAR},
+			</if>
+			<if test="securityLicenseNumber != null">
+				#{securityLicenseNumber,jdbcType=INTEGER},
+			</if>
+			<if test="workNumber != null">
+				#{workNumber,jdbcType=INTEGER},
+			</if>
+			<if test="qualifiedNumber != null">
+				#{qualifiedNumber,jdbcType=INTEGER},
+			</if>
+			<if test="validateDateNumber != null">
+				#{validateDateNumber,jdbcType=INTEGER},
+			</if>
+			<if test="monitorNumber != null">
+				#{monitorNumber,jdbcType=INTEGER},
+			</if>
+			<if test="envAssessmentFile != null">
+				#{envAssessmentFile,jdbcType=VARCHAR},
+			</if>
+			<if test="checkInfoFile != null">
+				#{checkInfoFile,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				#{status,jdbcType=INTEGER},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.xqls.common.entity.CompanyInfo">
+		update company_info
+		<set>
+			<if test="code != null">
+				code = #{code,jdbcType=VARCHAR},
+			</if>
+			<if test="name != null">
+				name = #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="shortName != null">
+				short_name = #{shortName,jdbcType=VARCHAR},
+			</if>
+			<if test="englishName != null">
+				english_name = #{englishName,jdbcType=VARCHAR},
+			</if>
+			<if test="areaCode != null">
+				area_code = #{areaCode,jdbcType=VARCHAR},
+			</if>
+			<if test="tradeCode != null">
+				trade_code = #{tradeCode,jdbcType=VARCHAR},
+			</if>
+			<if test="picture != null">
+				picture = #{picture,jdbcType=VARCHAR},
+			</if>
+			<if test="lat != null">
+				lat = #{lat,jdbcType=DECIMAL},
+			</if>
+			<if test="lng != null">
+				lng = #{lng,jdbcType=DECIMAL},
+			</if>
+			<if test="companyLevel != null">
+				company_level = #{companyLevel,jdbcType=INTEGER},
+			</if>
+			<if test="phone != null">
+				phone = #{phone,jdbcType=VARCHAR},
+			</if>
+			<if test="address != null">
+				address = #{address,jdbcType=VARCHAR},
+			</if>
+			<if test="email != null">
+				email = #{email,jdbcType=VARCHAR},
+			</if>
+			<if test="homePage != null">
+				home_page = #{homePage,jdbcType=VARCHAR},
+			</if>
+			<if test="product != null">
+				product = #{product,jdbcType=VARCHAR},
+			</if>
+			<if test="manager != null">
+				manager = #{manager,jdbcType=VARCHAR},
+			</if>
+			<if test="wasteManager != null">
+				waste_manager = #{wasteManager,jdbcType=VARCHAR},
+			</if>
+			<if test="wastePhone != null">
+				waste_phone = #{wastePhone,jdbcType=VARCHAR},
+			</if>
+			<if test="facilityAddress != null">
+				facility_address = #{facilityAddress,jdbcType=VARCHAR},
+			</if>
+			<if test="type != null">
+				type = #{type,jdbcType=VARCHAR},
+			</if>
+			<if test="subjection != null">
+				subjection = #{subjection,jdbcType=VARCHAR},
+			</if>
+			<if test="registerType != null">
+				register_type = #{registerType,jdbcType=VARCHAR},
+			</if>
+			<if test="scale != null">
+				scale = #{scale,jdbcType=VARCHAR},
+			</if>
+			<if test="managerCode != null">
+				manager_code = #{managerCode,jdbcType=VARCHAR},
+			</if>
+			<if test="companyDate != null">
+				company_date = #{companyDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="fax != null">
+				fax = #{fax,jdbcType=VARCHAR},
+			</if>
+			<if test="postCode != null">
+				post_code = #{postCode,jdbcType=VARCHAR},
+			</if>
+			<if test="remark != null">
+				remark = #{remark,jdbcType=VARCHAR},
+			</if>
+			<if test="createDate != null">
+				create_date = #{createDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="createUser != null">
+				create_user = #{createUser,jdbcType=VARCHAR},
+			</if>
+			<if test="envAssessmentFile != null">
+				env_assessment_file = #{envAssessmentFile,jdbcType=VARCHAR},
+			</if>
+			<if test="checkInfoFile != null">
+				check_info_file = #{checkInfoFile,jdbcType=VARCHAR},
+			</if>
+			<if test="status != null">
+				status = #{status,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.xqls.common.entity.CompanyInfo">
+		update
+		company_info
+		set 
+		code = #{code,jdbcType=VARCHAR},
+		name = #{name,jdbcType=VARCHAR},
+		short_name = #{shortName,jdbcType=VARCHAR},
+		english_name = #{englishName,jdbcType=VARCHAR},
+		area_code = #{areaCode,jdbcType=VARCHAR},
+		trade_code = #{tradeCode,jdbcType=VARCHAR},
+		picture = #{picture,jdbcType=VARCHAR},
+		lat = #{lat,jdbcType=DECIMAL},
+		lng = #{lng,jdbcType=DECIMAL},
+		company_level = #{companyLevel,jdbcType=INTEGER},
+		phone = #{phone,jdbcType=VARCHAR},
+		address = #{address,jdbcType=VARCHAR},
+		email = #{email,jdbcType=VARCHAR},
+		home_page = #{homePage,jdbcType=VARCHAR},
+		product = #{product,jdbcType=VARCHAR},
+		manager = #{manager,jdbcType=VARCHAR},
+		waste_manager = #{wasteManager,jdbcType=VARCHAR},
+		waste_phone = #{wastePhone,jdbcType=VARCHAR},
+		facility_address = #{facilityAddress,jdbcType=VARCHAR},
+		type = #{type,jdbcType=VARCHAR},
+		subjection = #{subjection,jdbcType=VARCHAR},
+		register_type = #{registerType,jdbcType=VARCHAR},
+		scale = #{scale,jdbcType=VARCHAR},
+		manager_code = #{managerCode,jdbcType=VARCHAR},
+		company_date = #{companyDate,jdbcType=TIMESTAMP},
+		fax = #{fax,jdbcType=VARCHAR},
+		post_code = #{postCode,jdbcType=VARCHAR},
+		remark = #{remark,jdbcType=VARCHAR},
+		create_date = #{createDate,jdbcType=TIMESTAMP},
+		create_user = #{createUser,jdbcType=VARCHAR},
+		radiation_manager=#{radiationManager},
+		radiation_phone=#{radiationPhone},
+		security_license_number=#{securityLicenseNumber},
+		work_number=#{workNumber},
+		qualified_number=#{qualifiedNumber},
+		validate_date_number=#{validateDateNumber},
+		monitor_number=#{monitorNumber},
+		env_assessment_file = #{envAssessmentFile,jdbcType=VARCHAR},
+		check_info_file = #{checkInfoFile,jdbcType=VARCHAR}
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+
+	<select id="list" parameterType="com.xqls.common.entity.CompanyInfo"
+		resultType="com.xqls.common.entity.CompanyInfo">
+		select ci.*,ci2.name as subjectionName
+		from company_info ci
+		left join (select * from company_info)ci2 on ci.subjection=ci2.code
+		where 1=1
+		<if test="type!=null and type!=''">
+			and ci.type = #{type}
+		</if>
+		<if test="code!=null and code!=''">
+			and ci.code =#{code}
+		</if>
+		<if test="status!=null">
+			and ci.status =#{status}
+		</if>
+		<if test="name!=null and name!=''">
+			and ci.name like concat('%',#{name},'%')
+		</if>
+		<if test="subjection!=null and subjection!=''">
+			and ci.subjection = #{subjection}
+		</if>
+		order by ci.create_date desc
+	</select>
+	
+	<select id="getChildList" parameterType="java.lang.String" resultType="com.xqls.common.entity.CompanyInfo">
+		select * from company_info 
+		where (FIND_IN_SET(subjection,getChildList(#{companyCode,jdbcType=VARCHAR})) or code =#{companyCode,jdbcType=VARCHAR})
+		and type='1'
+	</select>
+	
+	<select id="getChildListById" parameterType="java.lang.Integer" resultType="com.xqls.common.entity.CompanyInfo">
+		select 
+		ci2.*
+		from company_info ci
+		INNER JOIN (select * from company_info)ci2 on ci.code = ci2.subjection 
+		where ci.id =#{id}
+	</select>
+</mapper>

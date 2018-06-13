@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xqls.common.dao.RoleInfoMapper">
+  <resultMap id="BaseResultMap" type="com.xqls.common.entity.RoleInfo">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="role_id" jdbcType="VARCHAR" property="roleId" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="create_id" jdbcType="DECIMAL" property="createId" />
+    <result column="create_date_time" jdbcType="TIMESTAMP" property="createDateTime" />
+    <result column="signmenu" jdbcType="VARCHAR" property="signmenu" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, role_id, name, remark, create_id, create_date_time, signmenu
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from role_info
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from role_info
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.xqls.common.entity.RoleInfo">
+    insert into role_info (id, role_id, name, 
+      remark, create_id, 
+      create_date_time, signmenu)
+    values (#{id,jdbcType=INTEGER}, #{roleId,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR}, #{createId,jdbcType=DECIMAL}, 
+      #{create_date_time,jdbcType=TIMESTAMP}, #{signmenu,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xqls.common.entity.RoleInfo">
+    insert into role_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="roleId != null">
+        role_id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="createId != null">
+        create_id,
+      </if>
+        create_date_time,
+      <if test="signmenu != null">
+        signmenu,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="roleId != null">
+        #{roleId,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createId != null">
+        #{createId,jdbcType=DECIMAL},
+      </if>
+        now(),
+      <if test="signmenu != null">
+        #{signmenu,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xqls.common.entity.RoleInfo">
+    update role_info
+    <set>
+      <if test="roleId != null">
+        role_id = #{roleId,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="signmenu != null">
+        signmenu = #{signmenu,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xqls.common.entity.RoleInfo">
+    update role_info
+    set role_id = #{roleId,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      signmenu = #{signmenu,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="list" parameterType="com.xqls.common.entity.RoleInfo" resultMap="BaseResultMap">
+  	 select *
+  	 from role_info
+  	 where 1=1
+  	 <if test="name!=null and name!=''">
+  	 	and name like concat('%',#{name},'%')
+  	 </if>
+  	 order by create_date_time desc
+  </select>
+  
+  <select id="countByName" parameterType="com.xqls.common.entity.RoleInfo" resultType="java.lang.Integer">
+  	select count(1) from role_info
+  	where 1=1
+  	<if test="name!=null and name!=''">
+  		and name =#{name}
+  	</if>
+  </select>
+  
+  <select id="getRolesByUser" parameterType="com.xqls.common.entity.UserInfo" resultType="com.xqls.common.dto.TreeData">
+  	select * from user_role where user_id = #{id} 
+  </select>
+</mapper>
